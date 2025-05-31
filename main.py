@@ -103,7 +103,7 @@ def delete_all():
 
 def main():
     tasks = load_data()
-    print("Welcome to Enhanced CLI To Do List!")
+    print("Welcome to Enhanced CLI To Do List!\n")
     stay = True
     while stay:
         print("What do you want to do?\n 1. Add task\n 2. List all tasks\n 3. Mark a task as done")
