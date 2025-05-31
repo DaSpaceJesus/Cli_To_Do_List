@@ -50,6 +50,22 @@ def save_tasks(tasks):
         json.dump(tasks, f)
         print("Tasks Saved")
 
+def mark_done(tasks):
+    if len(tasks) <= 1:
+        print("No tasks left to mark done!")
+        return
+
+    list_tasks(tasks)
+    name = str(input("Enter the name of the task that you want to be marked as done: "))
+    if name != "Name":
+        for task in tasks:
+            if task[0] == name:
+                task[3] = "Done"
+    else:
+        print("Wrong!")
+    return tasks
+
+
 
 
 def main():
@@ -69,6 +85,12 @@ def main():
             Continue = int(input("Continue?\n 1. Yes\n 2. No\nYour choice: "))
             if Continue == 2:
                 stay = False
+        elif choice1 == 3:
+            tasks= mark_done(tasks)
+            save_tasks(tasks)
+            #Continue = int(input("Continue?\n 1. Yes\n 2. No\nYour choice: "))
+            #if Continue == 2:
+            stay = False
         elif choice1 == 6:
             stay = False
 
