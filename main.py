@@ -42,8 +42,12 @@ def add_task(tasks):
 
 
 def list_tasks(tasks):
-    for row in tasks:
-        print("{:<5} , {:<10}, {:<15}, {:<20}".format(*row))
+    if len(tasks) < 2:
+        print("No tasks found!")
+    else:
+        for row in tasks:
+            print("{:<0} , {:<6}, {:<5}, {:<5}".format(*row))
+
 
 def save_tasks(tasks):
     with open(data_file, 'w') as f:
@@ -53,16 +57,13 @@ def save_tasks(tasks):
 def mark_done(tasks):
     if len(tasks) <= 1:
         print("No tasks left to mark done!")
-        return
+        return tasks
 
-    list_tasks(tasks)
-    name = str(input("Enter the name of the task that you want to be marked as done: "))
-    if name != "Name":
-        for task in tasks:
-            if task[0] == name:
-                task[3] = "Done"
-    else:
-        print("Wrong!")
+    print("\nTasks:")
+    for index, task in enumerate(tasks[1:], start=1):
+        print(index, task)
+    choice = int(input("Enter your choice: "))
+    tasks[choice][3] = "Done"
     return tasks
 
 
