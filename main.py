@@ -96,6 +96,9 @@ def delete_task(tasks):
     for index, task in enumerate(tasks[1:], start=1):
         print(index, task)
     choice = int(input("Enter your choice: "))
+    if choice > len(tasks) - 1:
+        print("Invalid choice!")
+        return tasks
     tasks.pop(choice)
     print("Tasks deleted!")
     return tasks
