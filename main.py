@@ -4,6 +4,7 @@ from datetime import datetime
 
 data_file = 'tasks.json'
 
+
 def load_data():
     if os.path.exists(data_file):
         with open(data_file, 'r') as f:
@@ -11,6 +12,7 @@ def load_data():
     else:
         tasks = [["Name", "Description", "Due Date", "Status"]]
         return tasks
+
 
 def parse_date(date_str):
     formats = ["%Y/%m/%d", "%Y-%m-%d"]
@@ -21,6 +23,7 @@ def parse_date(date_str):
             continue
     raise ValueError(f"Date Format not recognized! Use one of {formats}")
 
+
 def add_task(tasks):
     multiple = True
     while multiple:
@@ -30,8 +33,11 @@ def add_task(tasks):
         description = input("Enter task description: ")
         taskitem.append(description)
         date = input("Enter task date(YYYY/MM/DD or YYYY-MM-DD): ")
-        parsed = parse_date(date)
-        taskitem.append(parsed.strftime("%Y/%m/%d"))
+        timeparse = ''
+        if date:
+            parsed = parse_date(date)
+            timeparse = parsed.strftime("%Y/%m/%d")
+        taskitem.append(timeparse)
         status = "Not Done"
         taskitem.append(status)
         tasks.append(taskitem)
@@ -40,13 +46,13 @@ def add_task(tasks):
             multiple = False
 
 
-
 def list_tasks(tasks):
     if len(tasks) < 2:
         print("No tasks found!")
     else:
         for row in tasks:
             print("{:<0} , {:<6}, {:<5}, {:<5}".format(*row))
+
 
 def mark_done(tasks):
     if len(tasks) <= 1:
@@ -60,12 +66,14 @@ def mark_done(tasks):
     tasks[choice][3] = "Done"
     return tasks
 
+
 def edit_task(tasks):
     print("\nWhich Task? :")
     for index, task in enumerate(tasks[1:], start=1):
         print(index, task)
     choice = int(input("Enter your choice: "))
-    choice2 = int(input("What do you want to edit?\n 1. Name\n 2. Description\n 3. Due Date\n 4. Status\nYour choice: "))
+    choice2 = int(
+        input("What do you want to edit?\n 1. Name\n 2. Description\n 3. Due Date\n 4. Status\nYour choice: "))
     if choice2 == 1:
         tasks[choice][0] = input("Enter new task name: ")
     elif choice2 == 2:
@@ -78,6 +86,7 @@ def edit_task(tasks):
         elif tasks[choice][3] == "Done":
             tasks[choice][3] = "Not Done"
     return tasks
+
 
 def delete_task(tasks):
     print("\nWhich Task? :")
@@ -94,11 +103,11 @@ def save_tasks(tasks):
         json.dump(tasks, f)
         print("Tasks Saved")
 
+
 def delete_all():
     if os.path.exists(data_file):
         os.remove(data_file)
         print("Tasks Deleted")
-
 
 
 def main():
@@ -107,7 +116,8 @@ def main():
     stay = True
     while stay:
         print("What do you want to do?\n 1. Add task\n 2. List all tasks\n 3. Mark a task as done")
-        choice1 = int(input(" 4. Edit an existing task\n 5. Delete an existing task\n 6. Delete all!\n 7. Exit\nYour Choice: "))
+        choice1 = int(
+            input(" 4. Edit an existing task\n 5. Delete an existing task\n 6. Delete all!\n 7. Exit\nYour Choice: "))
         if choice1 == 1:
             add_task(tasks)
             save_tasks(tasks)
@@ -151,10 +161,5 @@ def main():
             stay = False
 
 
-
-
-
 if __name__ == '__main__':
     main()
-
-
