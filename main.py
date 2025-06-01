@@ -72,6 +72,9 @@ def edit_task(tasks):
     for index, task in enumerate(tasks[1:], start=1):
         print(index, task)
     choice = int(input("Enter your choice: "))
+    if choice > len(tasks) - 1:
+        print("Invalid choice!")
+        return tasks
     choice2 = int(
         input("What do you want to edit?\n 1. Name\n 2. Description\n 3. Due Date\n 4. Status\nYour choice: "))
     if choice2 == 1:
