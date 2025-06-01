@@ -10,7 +10,7 @@ def load_data():
         with open(data_file, 'r') as f:
             return json.load(f)
     else:
-        tasks = [["Name", "Description", "Due Date", "Status"]]
+        tasks = [["NAME", "DESCRIPTION", "DUE DATE", "STATUS"]]
         return tasks
 
 
@@ -50,8 +50,18 @@ def list_tasks(tasks):
     if len(tasks) < 2:
         print("No tasks found!")
     else:
+        header = tasks[0]
+        tasks_row = tasks[1:]
+        try:
+            sorted_tasks = sorted(tasks_row, key=lambda task: parse_date(task[2]) if task[2] else datetime.max)
+        except ValueError as e:
+            print(f"Error sorting tasks: {e}")
+            sorted_tasks = tasks_row
+        tasks[1:] = sorted_tasks
+        print("Tasks Sorted by due dates:")
         for row in tasks:
-            print("{:<0} , {:<6}, {:<5}, {:<5}".format(*row))
+            print("{:<12}, {:<12}, {:<12}, {:<5}".format(*row))
+
 
 
 def mark_done(tasks):
@@ -68,12 +78,12 @@ def mark_done(tasks):
 
 
 def edit_task(tasks):
-    print("\nWhich Task? :")
+    print("\nWhich Task? :\n")
     for index, task in enumerate(tasks[1:], start=1):
         print(index, task)
     choice = int(input("Enter your choice: "))
-    if choice > len(tasks) - 1:
-        print("Invalid choice!")
+    if choice > len(tasks) - 1 or choice == 0:
+        print("Invalid choice!\n")
         return tasks
     choice2 = int(
         input("What do you want to edit?\n 1. Name\n 2. Description\n 3. Due Date\n 4. Status\nYour choice: "))
@@ -96,24 +106,24 @@ def delete_task(tasks):
     for index, task in enumerate(tasks[1:], start=1):
         print(index, task)
     choice = int(input("Enter your choice: "))
-    if choice > len(tasks) - 1:
-        print("Invalid choice!")
+    if choice > len(tasks) - 1 or choice == 0:
+        print("Invalid choice!\n")
         return tasks
     tasks.pop(choice)
-    print("Tasks deleted!")
+    print("Tasks deleted!\n")
     return tasks
 
 
 def save_tasks(tasks):
     with open(data_file, 'w') as f:
         json.dump(tasks, f)
-        print("Tasks Saved")
+        print("Tasks Saved\n")
 
 
 def delete_all():
     if os.path.exists(data_file):
         os.remove(data_file)
-        print("Tasks Deleted")
+        print("Tasks Deleted\n")
 
 
 def main():
