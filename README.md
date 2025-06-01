@@ -56,11 +56,11 @@ If no valid date is provided, the task is added without a due date.
 - Export to CSV or HTML
 - Add unit tests
 - Integrate color output for better UI (colorama)
--adding priority
--sort by priority and due date(like first high(the high itself sorted by date) then medium and then low priority tasks)
--filter listing tasks by done and undone
--search feature
--refactor i/o and validation into function
+- adding priority
+- sort by priority and due date(like first high(the high itself sorted by date) then medium and then low priority tasks)
+- filter listing tasks by done and undone
+- search feature
+- refactor i/o and validation into function
 
 
 ## 🧠 Author
