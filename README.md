@@ -61,6 +61,7 @@ If no valid date is provided, the task is added without a due date.
 - filter listing tasks by done and undone
 - search feature
 - refactor i/o and validation into function
+- Eisenhower Matrix
 
 
 ## 🧠 Author
