@@ -62,6 +62,7 @@ If no valid date is provided, the task is added without a due date.
 - search feature
 - refactor i/o and validation into function
 - Eisenhower Matrix
+- Highlight overdue tasks (Current date > due date)
 
 
 ## 🧠 Author
